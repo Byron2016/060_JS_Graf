@@ -9,36 +9,50 @@ const D = { x: 250, y: 200 };
 
 const ctx = myCanvas.getContext("2d");
 
-let t = 0.9; // t is a value between 0 and 1 a porcentage
+let t = -1; // t is a value between 0 and 1 a porcentage
 
-ctx.beginPath();
-ctx.moveTo(A.x, A.y);
-ctx.lineTo(B.x, B.y);
-ctx.moveTo(C.x, C.y);
-ctx.lineTo(D.x, D.y);
-ctx.stroke();
+animate();
 
-drawDot(A, "A");
-drawDot(B, "B");
-drawDot(C, "C");
-drawDot(D, "D");
-
-// find segment middle point and draw it
-const M = {
-  x: lerp(A.x, B.x, t),
-  y: lerp(A.y, B.y, t),
-};
-drawDot(M, "M");
-
-const N = {
-  x: lerp(C.x, D.x, t),
-  y: lerp(C.y, D.y, t),
-};
-drawDot(N, "N");
-
-function drawDot(point, label) {
+function animate() {
+  ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
   ctx.beginPath();
-  ctx.fillStyle = "white";
+  ctx.moveTo(A.x, A.y);
+  ctx.lineTo(B.x, B.y);
+  ctx.moveTo(C.x, C.y);
+  ctx.lineTo(D.x, D.y);
+  ctx.stroke();
+
+  // draw dots
+  drawDot(A, "A");
+  drawDot(B, "B");
+  drawDot(C, "C");
+  drawDot(D, "D");
+
+  // find segment middle point and draw them
+  const M = {
+    x: lerp(A.x, B.x, t),
+    y: lerp(A.y, B.y, t),
+  };
+
+  const N = {
+    x: lerp(C.x, D.x, t),
+    y: lerp(C.y, D.y, t),
+  };
+
+  drawDot(M, "M", t < 0 || t > 1);
+  drawDot(N, "N", t < 0 || t > 1);
+
+  t += 0.005;
+
+  requestAnimationFrame(animate);
+  if (t > 1.3) {
+    t = -1;
+  }
+}
+
+function drawDot(point, label, isRed) {
+  ctx.beginPath();
+  ctx.fillStyle = isRed ? "Red" : "white";
   ctx.arc(point.x, point.y, 10, 0, 2 * Math.PI);
   ctx.fill();
   ctx.stroke();
