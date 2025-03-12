@@ -22,6 +22,8 @@
 - [x] ![JAVASCRIPT](https://img.shields.io/static/v1?label=&message=javascript&color=yellow&logo=javascript3&logoColor=white&style=for-the-badge)
 
 ## Reference
+- **001_segment-intersection**
+  - [Suneel Kumar: Segment intersection formula explained](https://www.youtube.com/watch?v=fHOLQJo0FjQ) 
 
 
 
