@@ -8,6 +8,9 @@ const C = { x: 50, y: 100 };
 const D = { x: 250, y: 200 };
 
 const ctx = myCanvas.getContext("2d");
+
+let t = 0.9; // t is a value between 0 and 1 a porcentage
+
 ctx.beginPath();
 ctx.moveTo(A.x, A.y);
 ctx.lineTo(B.x, B.y);
@@ -19,6 +22,19 @@ drawDot(A, "A");
 drawDot(B, "B");
 drawDot(C, "C");
 drawDot(D, "D");
+
+// find segment middle point and draw it
+const M = {
+  x: lerp(A.x, B.x, t),
+  y: lerp(A.y, B.y, t),
+};
+drawDot(M, "M");
+
+const N = {
+  x: lerp(C.x, D.x, t),
+  y: lerp(C.y, D.y, t),
+};
+drawDot(N, "N");
 
 function drawDot(point, label) {
   ctx.beginPath();
