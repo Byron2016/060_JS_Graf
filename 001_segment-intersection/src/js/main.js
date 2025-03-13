@@ -42,6 +42,9 @@ function animate() {
   drawDot(M, "M", t < 0 || t > 1);
   drawDot(N, "N", t < 0 || t > 1);
 
+  const I = getIntersection(A, B, C, D);
+  drawDot(I, "I");
+
   t += 0.005;
 
   requestAnimationFrame(animate);
