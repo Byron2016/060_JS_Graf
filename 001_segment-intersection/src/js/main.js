@@ -12,6 +12,7 @@ const ctx = myCanvas.getContext("2d");
 let t = -1; // t is a value between 0 and 1 a porcentage
 
 // Add mouse
+let angle = 0;
 const mouse = { x: 0, y: 0 };
 document.onmousemove = (event) => {
   mouse.x = event.x;
@@ -22,11 +23,12 @@ animate();
 
 function animate() {
   const radius = 50;
-  A.x = mouse.x;
-  A.y = mouse.y - radius;
-  B.x = mouse.x;
-  B.y = mouse.y + radius;
-  
+  A.x = mouse.x + Math.cos(angle) * radius;
+  A.y = mouse.y - Math.sin(angle) * radius;
+  B.x = mouse.x - Math.cos(angle) * radius;
+  B.y = mouse.y + Math.sin(angle) * radius;
+  angle += 0.01;
+
   ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
   ctx.beginPath();
   ctx.moveTo(A.x, A.y);
@@ -56,7 +58,11 @@ function animate() {
   drawDot(N, "N", t < 0 || t > 1);
 
   const I = getIntersection(A, B, C, D);
-  drawDot(I, "I");
+  if (I) {
+    drawDot(I, "I");
+
+    drawBottom(I);
+  }
 
   t += 0.005;
 
@@ -64,6 +70,16 @@ function animate() {
   if (t > 1.3) {
     t = -1;
   }
+}
+
+function drawBottom(I, scale = 100) {
+  // Dibujar una barra que muestre como cambia el bottom
+  // se lo coloca que empiece en media pantalla para ver valores - y +
+  ctx.beginPath();
+  ctx.rect(myCanvas.width / 2, 0, I.bottom / scale, 10);
+  const bottom = I.bottom.toFixed(2);
+  ctx.fillStyle = bottom <= 0 ? "Red" : "Black";
+  ctx.fill();
 }
 
 function drawDot(point, label, isRed) {

@@ -42,9 +42,17 @@ function getIntersection(A, B, C, D) {
 
   const top = (D.x - C.x) * (A.y - C.y) - (D.y - C.y) * (A.x - C.x);
   const bottom = (D.y - C.y) * (B.x - A.x) - (D.x - C.x) * (B.y - A.y);
-  const t = top / bottom;
-  return {
-    x: lerp(A.x, B.x, t),
-    y: lerp(A.y, B.y, t),
-  };
+
+  if (bottom != 0) {
+    const t = top / bottom;
+    if (t >= 0 && t <= 1) {
+      return {
+        x: lerp(A.x, B.x, t),
+        y: lerp(A.y, B.y, t),
+        bottom,
+        offset: t, // how far it is
+      };
+    }
+  }
+  return null;
 }
