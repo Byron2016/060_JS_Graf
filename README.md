@@ -24,6 +24,7 @@
 ## Reference
 - **001_segment-intersection**
   - [Suneel Kumar: Segment intersection formula explained](https://www.youtube.com/watch?v=fHOLQJo0FjQ) 
+  - [EngineerNick: Line Segment Intersection (explicación con conceptos)](https://www.youtube.com/watch?v=5FkOO1Wwb8w)
 
 
 
