@@ -11,9 +11,22 @@ const ctx = myCanvas.getContext("2d");
 
 let t = -1; // t is a value between 0 and 1 a porcentage
 
+// Add mouse
+const mouse = { x: 0, y: 0 };
+document.onmousemove = (event) => {
+  mouse.x = event.x;
+  mouse.y = event.y;
+};
+
 animate();
 
 function animate() {
+  const radius = 50;
+  A.x = mouse.x;
+  A.y = mouse.y - radius;
+  B.x = mouse.x;
+  B.y = mouse.y + radius;
+  
   ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
   ctx.beginPath();
   ctx.moveTo(A.x, A.y);
